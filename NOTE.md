@@ -55,3 +55,82 @@ https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e15b1e4bc0b842a1affeba55594b23
 # 熟悉 NestJS
 
 控制反转（Inversion of Control，缩写为 IoC）是面向对象编程中的一种设计原则，可以用来降低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体将其所依赖的对象的引用传递给它。也可以说，依赖被注入到对象中。
+
+生成配套文件：`nest g resource user`
+
+
+# 基础功能配置
+
+Nest 作为一个上层框架，可以通过适配器模式使得底层可以兼容任意 HTTP 类型的 Node 框架，本身内置的框架有两种 Express 与 Fastify。
+
+Fastify 与其他主流 HTTP 框架对比 (Expreess)，其在 QPS(并发处理请求)的效率上要远超其他框架，达到了几乎两倍的基准测试结果，在网关系统这个对性能要求非常高的项目中使用 Fastify 无疑是一种非常好的选择。
+
+在业务复杂度以及对性能要求并非十分敏感的项目中，Express 也是一种非常好的选择，作为老牌的框架，它经历了非常多的大型项目实战的考验以及长期的迭代，使得 Express 社区生态非常的丰富
+
+## 版本控制
+
+```js
+// 全局
+app.enableVersioning({
+  defaultVersion: '1',
+  defaultVersion: [VERSION_NEUTRAL, '1', '2']
+});
+
+@Get()
+@Version([VERSION_NEUTRAL, '1'])
+findAll() {
+  return this.userService.findAll();
+}
+```
+
+## 全局返回参数
+
+拦截器 `transform.interceptor.ts`，对响应的数据格式化
+全局拦截 `app.useGlobalInterceptors(new TransformInterceptor())`
+
+## 全局异常拦截
+
+除了正常返回数据，对异常处理做一层标准封装：`base.exception.filter` 和 `http.exception.filter`
+全局异常过滤器 `app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter())`
+
+另外新增一个 business.exception.ts 主动抛出的业务异常
+
+## 环境配置
+
+`@nestjs/config` 默认会从项目根目录载入并解析一个 .env 文件，从 .env 文件和 process.env 合并环境变量键值对，并将结果存储到一个可以通过 ConfigService 访问的私有结构。
+
+`forRoot()` 方法注册了 ConfigService 提供者，后者提供了一个 `get()` 方法来读取这些解析/合并的配置变量。
+
+当一个键同时作为环境变量（例如，通过操作系统终端如export DATABASE_USER=test导出）存在于运行环境中以及.env文件中时，以运行环境变量优先。
+
+**YAML**
+Nest 自带了环境配置的功能，使用的 dotenv 来作为默认解析，此次使用结构更加清晰的 YAML 来覆盖默认配置。
+在使用自定义 YAML 配置文件之前，先要修改 app.module.ts 中 ConfigModule 的配置项 ignoreEnvFile，禁用默认读取 .env 的规则
+
+```js
+import { ConfigModule } from '@nestjs/config';
+
+@Module({
+  imports: [ConfigModule.forRoot({
+    gnoreEnvFile: true,
+    isGlobal: true, // 全局注册，没有添加时，则需要先对应的 module 文件中注册后才能正常使用 ConfigService。
+    load: [getConfig] // YAML 文件
+  })],
+})
+```
+
+使用 cross-env 指定运行环境来使用对应环境的配置变量
+`"start:dev": "cross-env RUNNING_ENV=dev nest start --watch",`
+
+## 热重载
+
+NestJS 的 dev 模式是将 TS 代码编译成 JS 再启动，这样每次我们修改代码都会重复经历一次编译的过程，为了避免这个情况，NestJS 也提供了热重载的功能，借助 Webpack 的 HMR，使得每次更新只需要替换更新的内容，减少编译的时间与过程。
+
+默认情况下，在 TS 开发的项目中是没办法导入 .json 后缀的模块，在 tsconfig.json 中新增 resolveJsonModule 配置即可。
+
+
+
+
+
+
+
