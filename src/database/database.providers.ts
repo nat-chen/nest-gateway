@@ -12,7 +12,8 @@ const MONGODB_DATABASE_CONFIG = {
   entities: [
     path.join(
       __dirname,
-      `../../**/*.${MONGODB_CONFIG.entities}.entity{.ts,.js}`,
+      '**',
+      `*.${MONGODB_CONFIG.entities}.entity{.ts,.js}`,
     ),
   ],
 };

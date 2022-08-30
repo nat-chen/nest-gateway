@@ -17,5 +17,4 @@ MONGODB_CONFIG:
 REDIS_CONFIG:
   host: "localhost"  # redis 链接
   port: 6379         # redis 端口
-  auth: "123456"       # redis 连接密码
   db: 1              # redis 数据库

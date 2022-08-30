@@ -13,13 +13,18 @@ import { AppModule } from './app.module';
 import { AllExceptionFilter } from './common/exceptions/base.exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { generateDocument } from './doc';
+import { FastifyLogger } from './common/logger';
+import fastify from 'fastify';
 
 declare const module: any;
 
 async function bootstrap() {
+  const fastifyInstance = fastify({
+    logger: FastifyLogger,
+  });
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter(fastifyInstance),
   );
 
   // 响应数据拦截器
