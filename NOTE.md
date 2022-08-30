@@ -129,6 +129,11 @@ NestJS 的 dev 模式是将 TS 代码编译成 JS 再启动，这样每次我们
 默认情况下，在 TS 开发的项目中是没办法导入 .json 后缀的模块，在 tsconfig.json 中新增 resolveJsonModule 配置即可。
 
 
+# 数据库
+
+docker run -d -p 27017:27017 --name fast_gateway_test -v mongo-data:/data/db -e MONGODB_INITDB_ROOT_USERNAME=root -e MONGODB_INITDB_ROOT_PASSWORD=123456 mongo
+
+docker run -d -p 6379:6379 --name my_redis redis
 
 
 
