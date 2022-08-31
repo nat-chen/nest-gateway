@@ -1,4 +1,5 @@
-import { In, Like, Raw, MongoRepository } from 'typeorm';
+import { FeishuUserInfo } from './feishu/feishu.dto';
+import { MongoRepository } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import { User } from './user.mongo.entity';
 
@@ -16,5 +17,8 @@ export class UserService {
     } catch (err) {
       console.log(err);
     }
+  }
+  async createOrUpdateByFeishu(feishuUserInfo: FeishuUserInfo) {
+    return await this.userRepository.save(feishuUserInfo);
   }
 }

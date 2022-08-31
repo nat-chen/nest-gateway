@@ -66,7 +66,7 @@ export class LogStream {
     if (data?.req?.url && data?.req?.url.indexOf('/api/doc') !== -1) {
       return null;
     }
-    return `${Level} | ${DateTime} | ${logId} | ${reqInfo} | ${data.stack || data.msg}`
+    return `${Level} | ${DateTime} | ${logId} | ${reqInfo} | ${data.stack || data.msg}`;
   }
 }
 

@@ -1,7 +1,7 @@
 import { resolve, join } from 'path';
 import { fastLogger } from './logger';
 
-let logOpt = {
+const logOpt = {
   console: process.env.NODE_ENV !== 'production', // 是否开启 console.log
   level: 'info',
   serializers: {

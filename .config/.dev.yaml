@@ -1,9 +1,18 @@
 FEISHU_CONFIG:
   FEISHU_URL: https://open.feishu.cn/open-apis
   FEISHU_API_HOST: https://open.feishu.cn
-  FEISHU_APP_ID: cli_a2ed5e7be4f9500d
-  FEISHU_APP_SECRET: HtMNYItwGbdp6yJv4o2j1fLrplwl6Mem
-  APP_TOKEN_CACHE_KEY: APP_TOKEN_CACHE_KEY
+  FEISHU_APP_ID: cli_a380866d5778500c
+  FEISHU_APP_SECRET: P101L9mLvyr4So8A563gBdwjY5fgkAHa
+MYSQL_CONFIG:
+  name: "user-test"
+  type: "mysql"
+  host: "127.0.0.1"
+  port: 3306
+  username: "yanxiaofan"
+  password: "123456"
+  database: "user-test"
+  entities: "mysql"
+  synchronize: true
 MONGODB_CONFIG:
   name: "fast_gateway_test"          # 自定义次数据库链接名称
   type: mongodb                      # 数据库链接类型
@@ -17,4 +26,6 @@ MONGODB_CONFIG:
 REDIS_CONFIG:
   host: "localhost"  # redis 链接
   port: 6379         # redis 端口
+  auth: "123456"
   db: 1              # redis 数据库
+APP_TOKEN_CACHE_KEY: APP_TOKEN_CACHE_KEY
