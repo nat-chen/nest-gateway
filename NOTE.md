@@ -135,6 +135,10 @@ docker run -d -p 27017:27017 --name fast_gateway_test -v mongo-data:/data/db -e 
 
 docker run -d -p 6379:6379 --name my_redis redis
 
+# 鉴权与登录
+
+`xxx.d.ts` 类型注释文件
+在 ts 中调用的 js 的声明文件。TS的核心在于静态类型，我们在编写 TS 的时候会定义很多的类型，但是主流的库都是 JS编写的，并不支持类型系统。这个时候你不能用TS重写主流的库，只需要编写仅包含类型注释的 d.ts 文件，在仍然使用纯 JS 库的同时，获得静态类型检查的 TS 优势
 
 
 

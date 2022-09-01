@@ -1,11 +1,9 @@
-import { GetTokenByApplications } from './auth.dto';
 import { FastifyReply } from 'fastify';
 import { FeishuAuthGuard } from './guards/feishu-auth.guard';
 import { AuthService } from './auth.service';
 import {
   Controller,
   Get,
-  Query,
   Res,
   UseGuards,
   VERSION_NEUTRAL,
@@ -35,7 +33,6 @@ export class AuthController {
     @Res({ passthrough: true }) response: FastifyReply,
     // @Query() query: GetTokenByApplications,
   ) {
-    console.log(user)
     const { access_token } = await this.authService.login(user);
     response.setCookie('jwt', access_token, {
       path: '/',

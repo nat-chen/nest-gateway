@@ -55,7 +55,7 @@ export const fastLogger = (opt) => {
     ...opt,
   };
 
-  // 添加落库日志
+  // 添加日志文件
   const allStreams = [
     {
       stream: new FileStream(reOpt).trans,
@@ -68,7 +68,6 @@ export const fastLogger = (opt) => {
       stream: new LogStream().trans,
     });
   }
-
   reOpt.stream = multiStream(allStreams);
 
   return reOpt;
