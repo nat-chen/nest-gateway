@@ -1,5 +1,5 @@
 import { UserController } from './user.controller';
-import { DatabaseModule } from './../database/database.module';
+import { DatabaseModule } from '../common/database/database.module';
 import { Module } from '@nestjs/common';
 import { FeishuService } from './feishu/feishu.service';
 import { FeishuController } from './feishu/feishu.controller';

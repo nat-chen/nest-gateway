@@ -33,7 +33,7 @@ async function bootstrap() {
   });
 
   // 响应数据拦截器
-  app.useGlobalInterceptors(new TransformInterceptor());
+  // app.useGlobalInterceptors(new TransformInterceptor());
 
   // 异常过滤器
   app.useGlobalFilters(new AllExceptionFilter(), new HttpExceptionFilter());
