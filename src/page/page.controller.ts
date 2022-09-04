@@ -98,7 +98,6 @@ export class PageController {
   @Public()
   @Get('getStream')
   getStream(): StreamableFile {
-    console.log(join(process.cwd(), 'package.json'));
     const file = createReadStream(join(process.cwd(), 'package.json'));
     return new StreamableFile(file);
   }

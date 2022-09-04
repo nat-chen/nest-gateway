@@ -1,4 +1,5 @@
 import { Reflector } from '@nestjs/core';
+import { IS_STREAM_KEY } from '@/auth/constants';
 import {
   CallHandler,
   ExecutionContext,
@@ -7,7 +8,6 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IS_STREAM_KEY } from '@/auth/constants';
 
 interface Response<T> {
   data: T;
@@ -26,9 +26,7 @@ export class TransformInterceptor<T>
     const IS_STREAM = this.reflector.getAllAndOverride<boolean>(IS_STREAM_KEY, [
       context.getHandler(),
       context.getClass(),
-    ]);
-    if (IS_STREAM) return next.handle().pipe(null);
-
+    ])
     return next.handle().pipe(
       map((data) => ({
         data,

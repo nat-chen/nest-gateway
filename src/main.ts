@@ -1,3 +1,4 @@
+import { catchError } from './common/logger/catchError';
 import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
 import {
   ValidationPipe,
@@ -18,6 +19,8 @@ import fastifyCookie from '@fastify/cookie';
 import fastify from 'fastify';
 
 declare const module: any;
+
+catchError();
 
 async function bootstrap() {
   const fastifyInstance = fastify({
